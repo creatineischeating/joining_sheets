@@ -1,0 +1,32 @@
+"""Reads two excel files in the root directory and outer joins them.
+The join can be changed as appropriate, eg left, right, outer.
+read_excel can be changed to read_csv."""
+
+import pandas as pd
+import os
+
+#root path
+root = os.getcwd()
+
+#change the name of the sheets as appropriate
+first_name = "sheet_1.xlsx"
+sheet_2_name = "sheet_2.xlsx"
+
+# Read both Excel files
+#can change read_excel to read_csv, but ensure to change the file names above to .csv
+sheet_1 = pd.read_excel(root+"\\"+first_name) 
+sheet_2 = pd.read_excel(root+"\\"+sheet_2_name)
+
+#the joining column name if in both sheets, change as appropriate
+column_name = "ID"
+
+#change the joining column name type to string to reduce errors
+sheet_2[column_name] = sheet_2[column_name].astype('str')
+sheet_1[column_name] = sheet_1[column_name].astype('str')
+
+#joins sheets into a dataframe
+join_df = sheet_2.merge(sheet_1, on=column_name, how="outer")#, indicator=True) #can change how to 'inner' depending on join type
+
+#exports dataframe as xlsx file
+export_name = "export.xlsx"
+join_df.to_excel(root+"\\"+export_name)
