@@ -1,2 +1,2 @@
 # joining_sheets
-Joining two csv or excel sheets together
+Joins two xlsx or csv sheets together
